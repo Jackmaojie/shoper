@@ -29,19 +29,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class ShopAppConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		// author-list -> /WEB-INF/jsp/author-list.jsp
-				// 对于控制器方法返回的字符串，会用以下规则解析成jsp路径，然后forward
-				// 前缀 + 返回字符串 + 后缀 = jsp路径
-				//            前缀                                      后缀
+
 		System.out.println("Appconfig");
 		registry.jsp("/WEB-INF/jsp/", ".jsp");
 	}
-	/**
-	 * 数据源依赖环境
-	 * 配置jdbc
-	 * @param env
-	 * @return
-	 */
 	@Bean
 	public DataSource dataSource(Environment env) { 
 		DriverManagerDataSource ds = new DriverManagerDataSource(
@@ -52,31 +43,21 @@ public class ShopAppConfig extends WebMvcConfigurerAdapter {
 		return ds;
 	}
 	
-	/**
-	 * 定义Mybatis的会话工厂
-	 * @param dataSource
-	 * @return
-	 */
-	@Bean // 定义Mybatis的会话工厂
+
+
+	@Bean 
 	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
 		SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
 		sf.setConfigLocation(new ClassPathResource("shop/shop-config.xml"));
 		sf.setDataSource(dataSource);
 		return sf;
 	}
-	/**
-	 * 编码
-	 * @return
-	 */
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-	// spring事务需要事务管理器组件（开事务、提交或回滚事务）  
-	/**
-	 * spring事务需要事务管理器组件（开事务、提交或回滚事务）
-	 * @author admin
-	 */
+
 	@Bean
 	public PlatformTransactionManager transactionManager(DataSource dataSource){
 		

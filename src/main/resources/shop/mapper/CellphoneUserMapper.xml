@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace对应接口名 -->
+  <mapper namespace="shop.mapper.CellphoneUserMapper">
+  	<insert id="create" useGeneratedKeys="true" keyColumn="u_id" keyProperty="id">
+  		insert into cellphone_user (u_id,u_username,u_gender,u_password) 
+  		values(cellphone_user_id_seq.nextval,#{username},#{gender},#{password})
+  	</insert>
+  	
+  	<select id="findOneByUsername" resultType="CellphoneUser">
+  		select u_username,u_password 
+  		from cellphone_user 
+  		where u_username=#{username}; 
+  	</select>
+  </mapper>

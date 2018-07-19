@@ -12,21 +12,18 @@
 	<style type="text/css">
 		
 	</style>
+	<link href="${contextPath}/assets/css/form.css" rel="stylesheet">
 </head>
 <body>
 	<div class="header">
-			<a href="${contextPath}/users/">首页</a>
-			<a href="${contextPath}/users/add">添加用户</a>
-			<div style="color:red;height:100px;padding:10px;">
-				<security:authentication property="principal.username" />
-			</div>		
+		<form action="${contextPath}/logout" method="post"
+			style="display: inline;">
+			<security:csrfInput />
+			<button type="submit">退出</button>
+		</form>
+
 	</div>
-	<!-- springsecurity默认的退出路径是：POST /logout，注意：springsecurity自带处理 -->
-	<form action="${contextPath}/logout" method="post"
-		style="display: inline;">
-		<security:csrfInput />
-		<button type="submit">退出</button>
-	</form>
+
 	<div class="content">
    	 <!-- 取tag参数值 -->
    	 	

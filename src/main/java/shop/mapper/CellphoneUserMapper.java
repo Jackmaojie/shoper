@@ -10,4 +10,6 @@ public interface CellphoneUserMapper {
 	
 	void updatelastdate(CellphoneUser cellphoneUser);
 
+	Integer usernameExists(String username);
+
 }

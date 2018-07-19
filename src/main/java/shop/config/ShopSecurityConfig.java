@@ -33,7 +33,7 @@ public class ShopSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests() // 配置页面授权
-            .antMatchers("/login").permitAll() // 登录页面允许所有用户访问（包括匿名）
+            .antMatchers("/login","/users/add").permitAll() // 登录页面允许所有用户访问（包括匿名）
             .antMatchers("/**").authenticated() // 其他页面仅限于登录用户访问
             
             .and()

@@ -13,5 +13,11 @@ public class FirstController {
 		return "index";
 		
 	}
+	@RequestMapping(method=RequestMethod.POST,value="/users/")
+	public String first(){
+		
+		return "index";
+	}
+	
 
 }

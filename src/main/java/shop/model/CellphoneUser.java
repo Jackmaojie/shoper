@@ -9,12 +9,12 @@ public class CellphoneUser {
 	private Long id;
 
 	private String username;
-	//@NotNull(message="必填")
+	@NotNull(message="必填")
 	private Gender gender;
 
 	private String password;
 	
-	private Date lastdate;
+	private String lastdate;
 	
 	public Long getId() {
 		return id;
@@ -41,10 +41,10 @@ public class CellphoneUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getLastdate() {
-		return lastdate;
+	public String getLastdate() {
+		return String.valueOf(lastdate);
 	}
-	public void setLastdate(Date lastdate) {
+	public void setLastdate(String lastdate) {
 		this.lastdate = lastdate;
 	}
 	

@@ -33,7 +33,6 @@
 				<button type="submit">登录</button>
 			</div>
 		</form>
-		<a href="${contextPath}/users/add"><button>用户注册</button></a>	
 	</div>
 </body>
 </html>

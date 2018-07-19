@@ -28,6 +28,7 @@
 		<div>
 			<label for="password">密　码:</label>
 			<form:input type="password" path="password" />
+			<form:errors path="password" cssClass="field-error"></form:errors>
 		</div>
 		
 		<div>

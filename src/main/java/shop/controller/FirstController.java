@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FirstController {
 	
-	@RequestMapping(method=RequestMethod.GET,value="/users/")
+	@RequestMapping(method=RequestMethod.GET,value="/")
 	public String index(){
 		
 		return "index";
 		
 	}
-	@RequestMapping(method=RequestMethod.POST,value="/users/")
+	@RequestMapping(method=RequestMethod.POST,value="/")
 	public String first(){
 		
 		return "index";

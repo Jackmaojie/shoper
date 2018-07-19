@@ -1,5 +1,7 @@
 package shop.model;
 
+import java.sql.Date;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -7,12 +9,12 @@ public class CellphoneUser {
 	private Long id;
 
 	private String username;
-	@NotNull(message="必填")
+	//@NotNull(message="必填")
 	private Gender gender;
 
 	private String password;
 	
-	
+	private Date lastdate;
 	
 	public Long getId() {
 		return id;
@@ -39,6 +41,13 @@ public class CellphoneUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Date getLastdate() {
+		return lastdate;
+	}
+	public void setLastdate(Date lastdate) {
+		this.lastdate = lastdate;
+	}
+	
 	
 	
 }

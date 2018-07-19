@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(method=RequestMethod.GET,value="/users/login")
+	@RequestMapping(method=RequestMethod.GET,value="/login")
 	public String login(@RequestParam(required = false) String error,
               Model model) {
 		if (error != null) {

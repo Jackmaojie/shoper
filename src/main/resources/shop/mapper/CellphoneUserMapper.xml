@@ -6,13 +6,18 @@
   <!-- namespace对应接口名 -->
   <mapper namespace="shop.mapper.CellphoneUserMapper">
   	<insert id="create" useGeneratedKeys="true" keyColumn="u_id" keyProperty="id">
-  		insert into cellphone_user (u_id,u_username,u_gender,u_password) 
-  		values(cellphone_user_id_seq.nextval,#{username},#{gender},#{password})
+  		insert into cellphone_user (u_id,u_username,u_gender,u_password,lastdate) 
+  		values(cellphone_user_id_seq.nextval,#{username},#{gender},#{password},#{lastdate})
   	</insert>
   	
-  	<select id="findOneByUsername" resultType="CellphoneUser">
-  		select u_username,u_password 
+  	<select id="findOneByUsername" resultType="shop.model.CellphoneUser">
+  		select u_username username, u_password password
   		from cellphone_user 
-  		where u_username=#{username}; 
+  		where u_username = #{username}
   	</select>
+  	
+  	<update id="updatelastdate">
+		update cellphone_user set lastdate=sysdate where u_username=#{username} 
+  	</update>
+  	
   </mapper>

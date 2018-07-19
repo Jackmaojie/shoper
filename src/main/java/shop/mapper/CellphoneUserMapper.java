@@ -7,5 +7,7 @@ public interface CellphoneUserMapper {
 	void create(CellphoneUser cellphoneUser);
 
 	CellphoneUser findOneByUsername(String username);
+	
+	void updatelastdate(CellphoneUser cellphoneUser);
 
 }

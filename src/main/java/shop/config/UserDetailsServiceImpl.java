@@ -9,23 +9,22 @@ import shop.mapper.CellphoneUserMapper;
 import shop.model.CellphoneUser;
 
 @Service
-public class UserDetailsServiceImol implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	private CellphoneUserMapper cellphoneUserMapper;
 	
 	
-	public UserDetailsServiceImol(CellphoneUserMapper cellphoneUserMapper) {
+	public UserDetailsServiceImpl(CellphoneUserMapper cellphoneUserMapper) {
 		this.cellphoneUserMapper = cellphoneUserMapper;
 	}
-
-
-
 
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		CellphoneUser cellphoneUser = cellphoneUserMapper.findOneByUsername(username);
-        
+		System.out.println("用户名:"+username);
+		CellphoneUser cellphoneuser = cellphoneUserMapper.findOneByUsername(username);
+        cellphoneUserMapper.updatelastdate(cellphoneuser);
+        CellphoneUser cellphoneUser=cellphoneUserMapper.findOneByUsername(username);
         if (cellphoneUser == null) { // 按照接口要求，用户名不存在时必须抛异常UsernameNotFoundException
             throw new UsernameNotFoundException("用户名不存在: " + username);
         } 

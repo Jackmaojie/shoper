@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace对应接口名 -->
+  <mapper namespace="shop.mapper.CellphoneMapper">
+	  	
+  	<select id="search" resultType="Cellphone">
+  		select c_id id,c_brand brand,c_model model,c_os os,c_cpubrand cpubrand,c_ram ram,
+  			c_storage storage,c_color color,c_description description,c_price price
+  		from cellphone 	
+		<where>
+			1=1
+			<if test="brand != null">
+				<!--  <bind name="brandPattern" value="'%'+brand+'%'"/> -->
+				 and c_brand = #{brand}
+			</if>
+			<if test="os != null">
+				and c_os=#{os}
+			</if>
+			<if test="cpubrand != null">
+				and c_cpubrand=#{cpubrand}
+			</if>
+			<if test="ram != null">
+				and c_ram=#{ram}
+			</if>
+			<if test="storage != null">
+				and c_storage=#{storage}
+			</if>
+		</where>
+  	</select>
+
+	<select id="findAll" resultType="Cellphone">
+		select c.c_id id,c.c_brand brand,c.c_model model,c.c_os os,c.c_cpubrand
+		cpubrand,c.c_ram ram,
+		c.c_storage storage,c.c_color color,c.c_description description,c.c_price price
+		from cellphone c
+
+	</select>
+
+	<select id="findOne" resultType="Cellphone">
+		select c_id id,c_brand brand,c_model model,c_os os,c_cpubrand cpubrand,c_ram
+		ram,
+		c_storage storage,c_color color,c_description description,c_price price
+		from cellphone where c_id=#{id}
+	</select>
+  	
+  </mapper>

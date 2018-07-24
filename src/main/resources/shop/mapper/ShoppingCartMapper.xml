@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace对应接口名 -->
+  <mapper namespace="shop.mapper.ShoppingCartMapper">
+	<select id="itemExists" resultType="boolean">
+		select count(*) from shopping_cart_item
+		where user_id=#{userId} and cellphone_id=#{cellphoneId}
+	</select>
+ 	
+ 	<update id="incItemAmount">
+ 		update shopping_cart_item set amount=amount + #{amount}
+ 		where user_id=#{userId} and cellphone_id=#{cellphoneId}
+ 	</update>
+  	<insert id="createItem">
+  		insert into shopping_cart_item (user_id,cellphone_id,amount)
+  		values (#{userId},#{cellphoneId},#{amount})
+  	</insert>
+  	<select id="findUser" resultType="CellphoneUser">
+  		select * from cellphone_user	
+  	</select>
+  	<select id="findAllItems" resultMap="cartDetailsMap">
+		select sci.user_id ,sci.amount,
+				c.c_id id,c.c_brand brand,c.c_model model,
+					c.c_color color,c.c_price price 
+		from shopping_cart_item sci
+ 		inner join cellphone c on cellphone_id=c_id
+  	</select>
+  	<resultMap type="ShopCartItem" id="cartDetailsMap">
+  		<result column="amount" property="amount" />
+  		<association property="cellphone" javaType="Cellphone">
+  			<id column="id" property="id" />
+  			<result column="brand" property="brand" />
+  			<result column="model" property="model" />
+  			<result column="color" property="color" />
+  			<result column="price" property="price" />
+  		</association>	
+  	</resultMap>
+  	
+	<delete id="removeItem">
+		delete from shopping_cart_item 
+		where user_id=#{userId} and cellphone_id=#{cellphoneId}
+	</delete>
+  	
+  	
+  </mapper>

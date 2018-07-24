@@ -46,6 +46,12 @@ public class CellphoneUser {
 	public void setLastdate(String lastdate) {
 		this.lastdate = lastdate;
 	}
+	@Override
+	public String toString() {
+		return "CellphoneUser [id=" + id + ", username=" + username
+				+ ", gender=" + gender + ", password=" + password
+				+ ", lastdate=" + lastdate + "]";
+	}
 	
 	
 	

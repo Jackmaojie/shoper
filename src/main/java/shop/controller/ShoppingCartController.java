@@ -58,11 +58,22 @@ public class ShoppingCartController {
 		shoppingCartService.removeItem(userId,cellphoneId);	
 		return "redirect:/uc/shop-cart";	
 	}
-/*	@RequestMapping(method=RequestMethod.GET,value="/uc/shop-cart/removeItem")
-	public String delete(){
-		return "shop-cart";
-	}*/
+	//==================================================================================================
+	//--------------------------在购物车中对商品做增减-------------------------------------------------------------
+	@RequestMapping(method=RequestMethod.POST,value="/uc/shop-cart/incItem")
+	public String incItem(@RequestParam String cellphoneId,
+			@AuthenticationPrincipal(expression="cellphoneUser.id") Long userId){
+		shoppingCartService.incItem(userId,cellphoneId);
+		
+		return "redirect:/uc/shop-cart";	
+	}
 	
-	
+	@RequestMapping(method=RequestMethod.POST,value="/uc/shop-cart/decItem")
+	public String decItem(@RequestParam String cellphoneId,
+			@AuthenticationPrincipal(expression="cellphoneUser.id") Long userId){
+		shoppingCartService.decItem(userId,cellphoneId);
+		
+		return "redirect:/uc/shop-cart";	
+	}
 	
 }

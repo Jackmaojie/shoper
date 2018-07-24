@@ -13,8 +13,6 @@ public interface ShoppingCartMapper {
 					@Param("cellphoneId") String cellphoneId, 
 					@Param("amount") int amount);
 
-	boolean itemExists(@Param("userId") Long userId,
-						@Param("cellphoneId") String cellphoneId);
 
 	void incItemAmount(@Param("userId") Long userId, 
 						@Param("cellphoneId") String cellphoneId, 
@@ -27,4 +25,7 @@ public interface ShoppingCartMapper {
 
 	void removeItem(@Param("userId") Long userId,
 			@Param("cellphoneId") String cellphoneId);
+
+	Integer findItemAmount(@Param("userId") Long userId,
+							@Param("cellphoneId") String cellphoneId);
 }

@@ -16,4 +16,8 @@ public interface ShoppingCartService {
 
 	void removeItem(Long userId, String cellphoneId);
 
+	void incItem(Long userId, String cellphoneId);
+
+	void decItem(Long userId, String cellphoneId);
+
 }

@@ -11,7 +11,7 @@
   	</insert>
   	
   	<select id="findOneByUsername" resultType="shop.model.CellphoneUser">
-  		select u_username username, u_password password
+  		select u_id id, u_username username, u_password password
   		from cellphone_user 
   		where u_username = #{username}
   	</select>
@@ -22,5 +22,6 @@
   	<update id="updatelastdate">
 		update cellphone_user set lastdate=sysdate where u_username=#{username} 
   	</update>
+  	
   	
   </mapper>

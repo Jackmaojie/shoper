@@ -26,8 +26,13 @@ public class ShoppingCartServicImpl implements ShoppingCartService{
 
 	@Override
 	public void addToCart(Long userId, String cellphoneId, int amount) {
-		if(shoppingCartMapper.itemExists(userId,cellphoneId)){
-			shoppingCartMapper.incItemAmount(userId,cellphoneId,amount);
+		Integer itemAmount=shoppingCartMapper.findItemAmount(userId,cellphoneId);
+		if(itemAmount != null){
+			if(itemAmount + amount == 0){
+				shoppingCartMapper.removeItem(userId,cellphoneId);
+			}else{
+				shoppingCartMapper.incItemAmount(userId,cellphoneId,amount);
+			}
 		}else{
 			shoppingCartMapper.createItem(userId, cellphoneId, amount);
 		}
@@ -47,12 +52,22 @@ public class ShoppingCartServicImpl implements ShoppingCartService{
 		return shoppingCartMapper.findAllItems(userId);
 	}
 
-
-
-
 	@Override
 	public void removeItem(Long userId, String cellphoneId) {
 		shoppingCartMapper.removeItem(userId,cellphoneId);
+		
+	}
+
+	@Override
+	public void incItem(Long userId, String cellphoneId) {
+		addToCart(userId, cellphoneId, +1);
+		
+	}
+
+
+	@Override
+	public void decItem(Long userId, String cellphoneId) {
+		addToCart(userId, cellphoneId, -1);
 		
 	}
 

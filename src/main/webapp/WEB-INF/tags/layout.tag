@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="header">
-		<div style="color: red; height: 100px; padding: 10px;">
+		<div style="color: red;">
 			<security:authorize access="isAuthenticated()"><!-- 检测用户登录 -->
 				<security:authentication property="principal.username"
 					var="username" />
@@ -27,11 +27,13 @@
 					<security:csrfInput />
 					<button type="submit">退出</button>
 				</form>
+				<a href="${contextPath}/uc/shop-cart"><button>购物车</button></a>
+				<a href="${contextPath}/">首页</a>
 			</security:authorize>
 		</div>
-		<div>
+		<div >
 			<security:authorize access="isAnonymous()">
-				<a href="${contextPath}/login">用户登录</a>
+				<a href="${contextPath}/login"><button>用户登录</button></a>
 				<a href="${contextPath}/users/add"><button>用户注册</button></a>	
 			</security:authorize>
 		</div>

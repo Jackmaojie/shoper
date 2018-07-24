@@ -22,7 +22,19 @@
 					${item.cellphone.color}
 				</td>
 				<td>￥:${item.cellphone.price/100}</td>
-				<td>${item.amount}</td>
+				<td>
+					<form action="${contextPath}/uc/shop-cart/decItem" method="post" class="inline">
+						<security:csrfInput/>
+						<input type="hidden" name="cellphoneId" value="${item.cellphone.id}">
+						<button type="submit">-</button>
+					</form>
+					${item.amount}
+					<form action="${contextPath}/uc/shop-cart/incItem" method="post" class="inline">
+						<security:csrfInput/>
+						<input type="hidden" name="cellphoneId" value="${item.cellphone.id}">
+						<button type="submit">+</button>
+					</form>
+				</td>
 				<td>￥:${item.amount * (item.cellphone.price/100)}</td>
 				<td>
 					<form action="${contextPath}/uc/shop-cart/removeItem" method="post">
@@ -35,7 +47,7 @@
 		</c:forEach>
 		<tr>
 			<td>总额</td>
-			<td></td>
+			<td>￥:${shoppingCart.totalCost()/100}</td>
 		</tr>
 	</table>
 

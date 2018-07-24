@@ -5,8 +5,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- namespace对应接口名 -->
   <mapper namespace="shop.mapper.ShoppingCartMapper">
-	<select id="itemExists" resultType="boolean">
-		select count(*) from shopping_cart_item
+	<select id="findItemAmount" resultType="int">
+		select amount from shopping_cart_item
 		where user_id=#{userId} and cellphone_id=#{cellphoneId}
 	</select>
  	
@@ -22,13 +22,15 @@
   		select * from cellphone_user	
   	</select>
   	<select id="findAllItems" resultMap="cartDetailsMap">
-		select sci.user_id ,sci.amount,
+		select sci.user_id user_id,sci.cellphone_id cellphone_id,sci.amount,
 				c.c_id id,c.c_brand brand,c.c_model model,
 					c.c_color color,c.c_price price 
 		from shopping_cart_item sci
  		inner join cellphone c on cellphone_id=c_id
   	</select>
   	<resultMap type="ShopCartItem" id="cartDetailsMap">
+  		<id column="user_id" />
+  		<id column="cellphone_id" />
   		<result column="amount" property="amount" />
   		<association property="cellphone" javaType="Cellphone">
   			<id column="id" property="id" />

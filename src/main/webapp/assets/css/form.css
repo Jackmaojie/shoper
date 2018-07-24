@@ -6,3 +6,6 @@
 .header{
 	color:red;
 }
+.inline{
+	display: inline-block;
+}

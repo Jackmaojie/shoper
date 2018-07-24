@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throws UsernameNotFoundException {
 		System.out.println("用户名:"+username);
 		CellphoneUser cellphoneuser = cellphoneUserMapper.findOneByUsername(username);
-        cellphoneUserMapper.updatelastdate(cellphoneuser);
+		cellphoneUserMapper.updatelastdate(cellphoneuser);
         CellphoneUser cellphoneUser=cellphoneUserMapper.findOneByUsername(username);
         if (cellphoneUser == null) { // 按照接口要求，用户名不存在时必须抛异常UsernameNotFoundException
             throw new UsernameNotFoundException("用户名不存在: " + username);

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace对应接口名 -->
+  <mapper namespace="shop.mapper.AddressMapper">
+  
+	<insert id="create" useGeneratedKeys="true" keyColumn="address_id" keyProperty="id">
+		insert into receiving_address
+			(address_id,address_user_id,receiving_name,phonenumber,detailed_address) 
+		values 
+			(address_id_seq.nextval,#{cellphoneUser.id},#{receivingname},#{phonenumber},#{detailedaddress})
+	</insert>
+  	<select id="findAllAddress" resultMap="addressDetailsMap">
+		select ra.address_id id,ra.address_user_id userid,ra.receiving_name receivingname,
+   			ra.phonenumber phonenumber,ra.detailed_address detailedaddress,
+   			cu.u_id usid
+		from receiving_address ra 
+		inner join cellphone_user cu on u_id=address_user_id      
+		where cu.u_id=#{userId}
+  	</select>
+  	
+  	<resultMap type="ReceivingAddress" id="addressDetailsMap">
+  		<id column="id" property="id" />
+		<result column="receivingname" property="receivingname" />
+		<result column="phonenumber" property="phonenumber" />
+		<result column="detailedaddress" property="detailedaddress"/>
+  		<association property="cellphoneUser" javaType="CellphoneUser">
+  			<id column="uid" property="id" />
+  		</association>
+  	
+  	
+  	</resultMap>
+  	
+  	<select id="findAllAddressOptions" resultType="ReceivingAddress">
+  		select address_id id,receiving_name receivingname,
+  		phonenumber,detailed_address detailedaddress from receiving_address 
+  	</select>
+  	
+  	<select id="findAddress" resultType="ReceivingAddress">
+  		select address_id id,receiving_name receivingname,phonenumber,detailed_address detailedaddress 
+  		from receiving_address
+  		where address_id=#{id}
+  	</select>
+  	<update id="updateAddress">
+		update receiving_address set receiving_name=#{receivingname},phonenumber=#{phonenumber}, 
+			detailed_address=#{detailedaddress} where address_id=#{id}
+  	</update>
+  	<delete id="deleteAddress">
+  		delete from receiving_address where address_id=#{id}
+  	</delete>
+  	
+  </mapper>

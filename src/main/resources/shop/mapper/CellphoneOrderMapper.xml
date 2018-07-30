@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace对应接口名 -->
+  <mapper namespace="shop.mapper.CellphoneOrderMapper">
+	<insert id="createOrder" useGeneratedKeys="true" keyColumn="cellphone_order_id" keyProperty="id">
+		insert into cellphone_order (cellphone_order_id,order_user_id,oreder_address_id,order_creation_time) 
+		values (cellphone_order_id_seq.nextval,#{userId},#{receivingAddress.id},sysdate)
+	</insert>
+  	
+  	<insert id="addItem">
+		insert into ordetitem_cellphone (orderitem_id,orderitem_cellphone_id,orderitem_amount) 
+		values (#{orderItemID},#{cellphone.id},#{amount})
+  	</insert>
+  	
+  	<select id="fingOneOrder" resultMap="cellphoneOrderDetailsMap">
+		select c.c_id c_id,c.c_brand c_brand,c.c_model c_model,c.c_price c_price,
+       			co.order_creation_time order_creation_time,
+       			co.cellphone_order_id cellphone_order_id,co.order_user_id order_user_id,
+      			ra.detailed_address detailed_address,ra.address_id address_id,
+      			otc.orderitem_amount orderitem_amount,
+      			otc.orderitem_id orderitem_id,otc.orderitem_cellphone_id orderitem_cellphone_id    
+		from cellphone_order co 
+		inner join receiving_address ra on co.oreder_address_id=ra.address_id 
+		inner join ordetitem_cellphone otc on co.cellphone_order_id=otc.orderitem_id  
+		inner join cellphone c on otc.orderitem_cellphone_id=c.c_id 
+		where co.order_user_id=#{userId} and co.cellphone_order_id=#{id}	
+  	</select>
+  	<resultMap type="CellphoneOrder" id="cellphoneOrderDetailsMap">
+  		<id column="cellphone_order_id" property="id" />
+  		<result column="order_user_id" property="userId"/>
+  		<result column="order_creation_time" property="createtime" />
+  		<association property="receivingAddress" javaType="ReceivingAddress">
+  			<id column="address_id" property="id" />
+  			<result column="detailed_address" property="detailedaddress" />
+  		</association>
+  		<collection property="orderItems" ofType="OrderItem">
+  			<id column="orderitem_id" />
+  			<id column="orderitem_cellphone_id" />
+  			<result column="orderitem_amount" property="amount" />
+  			<association property="cellphone" javaType="Cellphone">
+  				<id column="c_id" property="id" />
+  				<result column="c_brand" property="brand" />
+  				<result column="c_model" property="model" />
+  				<result column="c_price" property="price" />
+  			</association>
+  		</collection>
+  	</resultMap>
+  	<select id="findAllOrder" resultType="CellphoneOrder">
+  		select cellphone_order_id id,order_creation_time createtime,order_user_id from cellphone_order userId  
+  		where order_user_id=#{userId} order by cellphone_order_id asc
+  	
+  	</select>
+  </mapper>

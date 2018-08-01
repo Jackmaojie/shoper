@@ -86,7 +86,11 @@ public class CellphoneOrderController {
 		model.addAttribute("receivingAddresses", receivingAddresses);
 	}
 	//==================================================================================================
-
-	
-	
+	//------------------------删除订单-------------------------------------------------------------------
+	@RequestMapping(method=RequestMethod.GET,value="/uc/shop-order/{id}/delete")
+	public String delete(@PathVariable Integer id,
+							@AuthenticationPrincipal(expression="cellphoneUser.id") Long userId){
+		cellphoneOrderService.delete(userId,id);
+		return "redirect:/uc/shop-order/";	
+	}
 }	

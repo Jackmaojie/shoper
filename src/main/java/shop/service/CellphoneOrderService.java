@@ -20,4 +20,8 @@ public interface CellphoneOrderService {
 
 	List<CellphoneOrder> findAllOrder(Long userId);
 
+	void delete(Long userId,Integer id);
+
+
+
 }

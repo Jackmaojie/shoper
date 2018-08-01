@@ -13,12 +13,14 @@
 			<th>商品名称</th>
 			<th>单价</th>
 			<th>数量</th>
+			<th>状态</th>
 		</tr>
 			<c:forEach items="${cellphoneOrder.orderItems}" var="cellphoneOrderItem">
 				<tr>
 					<td>${cellphoneOrderItem.cellphone.brand}${cellphoneOrderItem.cellphone.model}</td>
 					<td>${cellphoneOrderItem.cellphone.price}</td>
 					<td>${cellphoneOrderItem.amount}</td>
+					<td>${cellphoneOrder.stateText()}</td>
 				</tr>
 			</c:forEach>
 	</table>

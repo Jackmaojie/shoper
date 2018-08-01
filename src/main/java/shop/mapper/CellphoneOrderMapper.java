@@ -21,6 +21,13 @@ public interface CellphoneOrderMapper {
 
 	List<CellphoneOrder> findAllOrder(Long userId);
 
+	void delete(@Param("id") Integer id,
+				@Param("userId") Long userId);
 
+	
+	void deleteItem(@Param("id") Integer id,
+					@Param("cellphoneId") String cellphoneId);
+	
+	
 
 }

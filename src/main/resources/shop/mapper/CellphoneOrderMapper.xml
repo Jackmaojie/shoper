@@ -6,8 +6,8 @@
   <!-- namespace对应接口名 -->
   <mapper namespace="shop.mapper.CellphoneOrderMapper">
 	<insert id="createOrder" useGeneratedKeys="true" keyColumn="cellphone_order_id" keyProperty="id">
-		insert into cellphone_order (cellphone_order_id,order_user_id,oreder_address_id,order_creation_time) 
-		values (cellphone_order_id_seq.nextval,#{userId},#{receivingAddress.id},sysdate)
+		insert into cellphone_order (cellphone_order_id,order_user_id,order_address_id,order_creation_time,order_state) 
+		values (cellphone_order_id_seq.nextval,#{userId},#{receivingAddress.id},sysdate,#{state})
 	</insert>
   	
   	<insert id="addItem">
@@ -17,13 +17,13 @@
   	
   	<select id="fingOneOrder" resultMap="cellphoneOrderDetailsMap">
 		select c.c_id c_id,c.c_brand c_brand,c.c_model c_model,c.c_price c_price,
-       			co.order_creation_time order_creation_time,
+       			co.order_creation_time order_creation_time,co.order_state order_state,
        			co.cellphone_order_id cellphone_order_id,co.order_user_id order_user_id,
       			ra.detailed_address detailed_address,ra.address_id address_id,
       			otc.orderitem_amount orderitem_amount,
       			otc.orderitem_id orderitem_id,otc.orderitem_cellphone_id orderitem_cellphone_id    
 		from cellphone_order co 
-		inner join receiving_address ra on co.oreder_address_id=ra.address_id 
+		inner join receiving_address ra on co.order_address_id=ra.address_id 
 		inner join ordetitem_cellphone otc on co.cellphone_order_id=otc.orderitem_id  
 		inner join cellphone c on otc.orderitem_cellphone_id=c.c_id 
 		where co.order_user_id=#{userId} and co.cellphone_order_id=#{id}	
@@ -32,6 +32,7 @@
   		<id column="cellphone_order_id" property="id" />
   		<result column="order_user_id" property="userId"/>
   		<result column="order_creation_time" property="createtime" />
+  		<result column="order_state" property="state" />
   		<association property="receivingAddress" javaType="ReceivingAddress">
   			<id column="address_id" property="id" />
   			<result column="detailed_address" property="detailedaddress" />
@@ -49,8 +50,15 @@
   		</collection>
   	</resultMap>
   	<select id="findAllOrder" resultType="CellphoneOrder">
-  		select cellphone_order_id id,order_creation_time createtime,order_user_id from cellphone_order userId  
+  		select cellphone_order_id id,order_creation_time createtime,order_user_id,order_state state 
+  		from cellphone_order  
   		where order_user_id=#{userId} order by cellphone_order_id asc
   	
   	</select>
+  	<delete id="deleteItem">
+  		delete from ordetitem_cellphone where orderitem_id=#{id} and orderitem_cellphone_id=#{cellphoneId}
+  	</delete>
+  	<delete id="delete">
+  		delete from cellphone_order where cellphone_order_id=#{id} and order_user_id=#{userId}
+  	</delete>
   </mapper>

@@ -12,6 +12,7 @@ import shop.mapper.ShoppingCartMapper;
 import shop.model.Cellphone;
 import shop.model.CellphoneOrder;
 import shop.model.OrderItem;
+import shop.model.OrderState;
 import shop.model.ReceivingAddress;
 import shop.model.ShopCartItem;
 import shop.model.ShoppingCart;
@@ -61,6 +62,7 @@ public class CellphoneOrderServiceImpl implements CellphoneOrderService {
 		//订单表
 		CellphoneOrder cellphoneOrder=new CellphoneOrder();
 		cellphoneOrder.setUserId(userId);
+		cellphoneOrder.setState(OrderState.Created);
 		ReceivingAddress receivingAddress=new ReceivingAddress();
 		receivingAddress.setId(receivingAddressId);
 		cellphoneOrder.setReceivingAddress(receivingAddress);
@@ -97,8 +99,14 @@ public class CellphoneOrderServiceImpl implements CellphoneOrderService {
 	}
 
 
-
-
-
+	@Override
+	public void delete(Long userId,Integer id) {
+		CellphoneOrder cellphoneOrder=cellphoneOrderMapper.fingOneOrder(userId, id);
+		for(OrderItem item:cellphoneOrder.getOrderItems()){
+			cellphoneOrderMapper.deleteItem(id, item.getCellphone().getId());
+		}
+		cellphoneOrderMapper.delete(id,userId);
+		
+	}
 
 }

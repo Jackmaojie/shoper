@@ -9,13 +9,17 @@
 		<tr>
 			<th>订单编号</th>
 			<th>订单创建时间</th>
+			<th>订单状态</th>
 			<th>操作</th>
 		</tr>
 		<c:forEach items="${cellphoneOrders}" var="cellphoneOrder">
 			<tr>
 				<td>${cellphoneOrder.id}</td>
 				<td>${cellphoneOrder.createtime}</td>
-				<td><a href="${contextPath}/uc/shop-order/${cellphoneOrder.id}">订单详情</a></td>
+				<td>${cellphoneOrder.stateText()}</td>
+				<td><a href="${contextPath}/uc/shop-order/${cellphoneOrder.id}">订单详情</a>
+					<a href="${contextPath}/uc/shop-order/${cellphoneOrder.id}/delete">取消订单</a>
+				</td>
 			</tr>	
 		</c:forEach>
 	</table>

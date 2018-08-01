@@ -30,8 +30,15 @@
 	<div>
 		收货地址：${cellphoneOrder.receivingAddress.detailedaddress}<br>
 		<a href="${contextPath}/uc/shop-address/${cellphoneOrder.receivingAddress.id}/edit">更换收货地址</a>
-
 	</div>
+	<c:if test="${cellphoneOrder.state == 'Created'}">
+		<div>
+			<form action="${contextPath}/uc/shop-order/${cellphoneOrder.id}/pay" method="post">
+				<security:csrfInput/>
+				<button>支付宝付款</button>
+			</form>
+		</div>
+	</c:if>
 	
 </t:layout>
 

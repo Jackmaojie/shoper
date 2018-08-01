@@ -13,7 +13,7 @@ public class CellphoneOrder {
 	private ReceivingAddress receivingAddress;
 	private String createtime;
 	private List<OrderItem> orderItems=new ArrayList<OrderItem>();
-	
+	private OrderState state;
 	public Integer getId() {
 		return id;
 	}
@@ -44,6 +44,12 @@ public class CellphoneOrder {
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
+	public OrderState getState() {
+		return state;
+	}
+	public void setState(OrderState state) {
+		this.state = state;
+	}
 	public int totalCost(){
 		int result=0;
 		for(OrderItem item:orderItems){
@@ -51,4 +57,28 @@ public class CellphoneOrder {
 		}
 		return result;
 	}
+    public String stateText() {
+        switch (state) {
+        case Created:
+            return "待支付";
+            
+        case Paid:
+            return "待发货";
+            
+        case Shipped:
+            return "已发货";
+            
+        case Delivered:
+            return "已送达";
+            
+        case Commented:
+            return "已评论";
+            
+        case Canceled:
+            return "已取消";
+
+        default:
+            return "?" + state;
+        }
+    }
 }

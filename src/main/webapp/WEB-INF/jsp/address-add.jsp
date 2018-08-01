@@ -6,15 +6,11 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set> 
 <c:set var="title" value="${receivingAddressForm.id ==null ? '添加' : '修改'}"></c:set>
 <t:layout title="${title}">
-	<jsp:attribute name="css">
-   	 <link href="${contextPath}/assets/css/form.css" rel="stylesheet">
-  	</jsp:attribute>
-  	
-	<jsp:attribute name="js">
-   	 	<script>
-     		 console.log('手机列表');
-    	</script>
-  	</jsp:attribute>
+	
+  <jsp:attribute name="css">
+    <link href="${contextPath}/assets/css/form.css" rel="stylesheet">
+  </jsp:attribute>
+ 	
 	<jsp:body>
 	<h1>${title}</h1>
 	<form:form action="" method="post" commandName="receivingAddressForm">

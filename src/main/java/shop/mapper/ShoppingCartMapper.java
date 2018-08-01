@@ -28,4 +28,7 @@ public interface ShoppingCartMapper {
 
 	Integer findItemAmount(@Param("userId") Long userId,
 							@Param("cellphoneId") String cellphoneId);
+
+
+	void clear(Long userId);
 }

@@ -24,9 +24,9 @@
 					<td>${address.receivingname}</td>
 					<td>${address.phonenumber}</td>
 					<td>${address.detailedaddress}</td>
-					<td><a href="${contextPath}/uc/shop-address/${address.id}/edit">修改</a>
+					<td>
+						<a href="${contextPath}/uc/shop-address/${address.id}/edit">修改</a>
 						<a href="${contextPath}/uc/shop-address/${address.id}/delete">删除</a>
-						<a href="${contextPath}/uc/shop-address/add">添加</a>
 					</td>
 				</tr>
 			</c:forEach>

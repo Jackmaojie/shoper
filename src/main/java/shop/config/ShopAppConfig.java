@@ -1,8 +1,13 @@
 package shop.config;
 
 
+
+import java.io.File;
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
+import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +26,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+
+
 
 @Configuration
 @ComponentScan("shop")
@@ -28,12 +37,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @MapperScan("shop.mapper")
 @PropertySource("classpath:shop/jdbc.properties")
 public class ShopAppConfig extends WebMvcConfigurerAdapter {
+	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 
 		System.out.println("Appconfig");
 		registry.jsp("/WEB-INF/jsp/", ".jsp");
 	}
+	
 	@Bean
 	public DataSource dataSource(Environment env) { 
 		DriverManagerDataSource ds = new DriverManagerDataSource(
@@ -44,8 +55,6 @@ public class ShopAppConfig extends WebMvcConfigurerAdapter {
 		return ds;
 	}
 	
-
-
 	@Bean 
 	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
 		SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
@@ -65,12 +74,24 @@ public class ShopAppConfig extends WebMvcConfigurerAdapter {
 		return new DataSourceTransactionManager(dataSource);
 		
 	}
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 	    // 当springmvc遇到没有控制器映射的路径时（如webapp下的静态资源），交给默认的servlet处理
 	    configurer.enable(); 
 	}
 	
-	
+	@Bean
+	public AlipayClient alipayClient() throws IOException{
+		
+		return new DefaultAlipayClient(
+				"https://openapi.alipay.com/gateway.do",
+				"2018052360246120", 
+				FileUtils.readFileToString(new File("E:/ecl/ws/alipay/app-private-key.txt"), "UTF-8"), 
+				"json",
+	            "UTF-8",
+	            FileUtils.readFileToString(new File("E:/ecl/ws/alipay/alipay-public-key.txt"), "UTF-8"),
+	            "RSA2");
+	}
 }
 
